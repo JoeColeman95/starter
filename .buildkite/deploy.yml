@@ -1,14 +1,46 @@
 steps:
     - label: ":shipit: Deploy the Thing :tm: "
-      command: ./vault/scripts/deploy.sh
+      command: ./scripts/deploy.sh
+      agents:
+        queue: vault
       plugins:
-        - vault-secrets#v1.1.0:
+        - vault-secrets#v2.2.0:
             server: "http://localhost:8200"
             path: secret/buildkite
             auth:
               method: "approle"
               role-id: "${VAULT_ROLE_ID}"
+
     - wait
 
+    - label: ":disguised_face: Deploy the thing (with OIDC) :tm:"
+      command: ./scripts/deploy.sh
+      agents:
+        queue: vault
+      plugins:
+        - vault-secrets#v2.2.0:
+            server: "http://localhost:8200"
+            path: secret/buildkite
+            auth:
+              method: jwt
+              jwt-role: buildkite
+              jwt-env: "VAULT_JWT"
+
+    - wait
+
+    - label: ":shipit: Get secret from mountpath kv/ :tm: "
+      command: ./scripts/secret.sh
+      agents:
+        queue: vault
+      plugins:
+        - vault-secrets#v2.2.0:
+            server: "http://localhost:8200"
+            path: kv/buildkite
+            auth:
+              method: "approle"
+              role-id: "${VAULT_ROLE_ID}"
+
     - label: ":vault: :bomb: clean up"
-      command: docker compose -f ./vault/docker-compose.yml down
+      command: docker compose down
+      agents:
+        queue: vault
