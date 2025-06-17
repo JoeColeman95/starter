@@ -7,6 +7,7 @@ steps:
     command: echo "Test the rocket"
     key: test
     depends_on: build
+    parallelism: 2
 
   - label: ":rocket: Deploy"
     command: |
