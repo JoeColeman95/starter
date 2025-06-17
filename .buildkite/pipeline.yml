@@ -5,18 +5,12 @@
 steps:
     - label: ":vault: launch vault server"
       command: docker compose -f ./vault/docker-compose.yml up -d
-      agents:
-        queue: vault
 
     - wait
 
     - label: ":hammer_and_wrench: configure vault"
       command: ./vault/scripts/setup-vault.sh
-      agents:
-        queue: vault
 
 
     - label: ":pipeline: Upload Deploy pipeline"
       command: buildkite-agent pipeline upload .buildkite/deploy.yml
-      agents:
-        queue: vault

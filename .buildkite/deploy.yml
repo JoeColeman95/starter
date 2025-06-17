@@ -1,8 +1,6 @@
 steps:
     - label: ":shipit: Deploy the Thing :tm: "
       command: ./vault/scripts/deploy.sh
-      agents:
-        queue: vault
       plugins:
         - vault-secrets#v1.1.0:
             server: "http://localhost:8200"
@@ -14,5 +12,3 @@ steps:
 
     - label: ":vault: :bomb: clean up"
       command: docker compose -f ./vault/docker-compose.yml down
-      agents:
-        queue: vault
