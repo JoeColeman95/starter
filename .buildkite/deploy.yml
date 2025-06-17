@@ -1,8 +1,6 @@
 steps:
     - label: ":shipit: Deploy the Thing :tm: "
       command: ./scripts/deploy.sh
-      agents:
-        queue: vault
       plugins:
         - vault-secrets#v2.2.0:
             server: "http://localhost:8200"
@@ -15,8 +13,6 @@ steps:
 
     - label: ":disguised_face: Deploy the thing (with OIDC) :tm:"
       command: ./scripts/deploy.sh
-      agents:
-        queue: vault
       plugins:
         - vault-secrets#v2.2.0:
             server: "http://localhost:8200"
@@ -30,8 +26,6 @@ steps:
 
     - label: ":shipit: Get secret from mountpath kv/ :tm: "
       command: ./scripts/secret.sh
-      agents:
-        queue: vault
       plugins:
         - vault-secrets#v2.2.0:
             server: "http://localhost:8200"
@@ -42,5 +36,3 @@ steps:
 
     - label: ":vault: :bomb: clean up"
       command: docker compose down
-      agents:
-        queue: vault
