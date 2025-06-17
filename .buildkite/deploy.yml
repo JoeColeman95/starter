@@ -11,19 +11,6 @@ steps:
 
     - wait
 
-    - label: ":disguised_face: Deploy the thing (with OIDC) :tm:"
-      command: ./vault/scripts/deploy.sh
-      plugins:
-        - vault-secrets#v2.2.0:
-            server: "http://localhost:8200"
-            path: secret/buildkite
-            auth:
-              method: jwt
-              jwt-role: buildkite
-              jwt-env: "VAULT_JWT"
-
-    - wait
-
     - label: ":shipit: Get secret from mountpath kv/ :tm: "
       command: ./vault/scripts/secret.sh
       plugins:
