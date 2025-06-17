@@ -12,7 +12,7 @@ set -euo pipefail
 
 export VAULT_TOKEN="${VAULT_DEV_ROOT_TOKEN_ID:-"buildkite-is-cool"}"
 export VAULT_ADDRESS="http://127.0.0.1:8220"
-
+export VAULT_ADDR="http://127.0.0.1:8220" # Has the expected env var changed?
 
 # put some data in the kv store
 
