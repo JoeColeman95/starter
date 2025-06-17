@@ -22,7 +22,7 @@ vault kv put secret/buildkite/vault-buildkite-demo/env some_value="alpacas" && s
 vault auth enable approle && sleep 1
 
 # create the policy that will be scoped to the token requested by the agent role
-cat ./config/agent-policy.hcl | vault policy write buildkite -
+cat ./vault/config/agent-policy.hcl | vault policy write buildkite -
 
 sleep 1
 
