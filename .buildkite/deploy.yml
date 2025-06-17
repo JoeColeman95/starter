@@ -4,11 +4,10 @@ steps:
       plugins:
         - vault-secrets#v2.2.0:
             server: "http://localhost:8200"
-            path: secret/buildkite/vault-buildkite-demo/env
+            path: secret/buildkite
             auth:
               method: "approle"
               role-id: "${VAULT_ROLE_ID}"
-              secret-id: "${VAULT_SECRET_ID}"
 
     - wait
 
@@ -17,11 +16,10 @@ steps:
       plugins:
         - vault-secrets#v2.2.0:
             server: "http://localhost:8200"
-            path: kv/buildkite/vault-buildkite-demo/env
+            path: kv/buildkite
             auth:
               method: "approle"
               role-id: "${VAULT_ROLE_ID}"
-              secret-id: "${VAULT_SECRET_ID}"
 
     - wait
 

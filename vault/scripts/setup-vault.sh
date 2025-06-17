@@ -18,8 +18,8 @@ vault secrets enable kv || ([ $? -eq 2 ] && exit 0)
 
 # put some data in the kv store
 
-vault kv put secret/buildkite/vault-buildkite-demo/env some_value="alpacas" && sleep 1
-vault kv put kv/buildkite/vault-buildkite-demo/env artifactory_user="test" && sleep 1
+vault kv put secret/buildkite/starter/env some_value="alpacas" && sleep 1
+vault kv put kv/buildkite/starter/env artifactory_user="test" && sleep 1
 
 # enable approle authentication
 vault auth enable approle && sleep 1 || ([ $? -eq 2 ] && exit 0)
