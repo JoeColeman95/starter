@@ -1,6 +1,6 @@
 steps:
     - label: ":shipit: Deploy the Thing :tm: "
-      command: ./scripts/deploy.sh
+      command: ./vault/scripts/deploy.sh
       plugins:
         - vault-secrets#v2.2.0:
             server: "http://localhost:8200"
@@ -12,7 +12,7 @@ steps:
     - wait
 
     - label: ":disguised_face: Deploy the thing (with OIDC) :tm:"
-      command: ./scripts/deploy.sh
+      command: ./vault/scripts/deploy.sh
       plugins:
         - vault-secrets#v2.2.0:
             server: "http://localhost:8200"
@@ -25,7 +25,7 @@ steps:
     - wait
 
     - label: ":shipit: Get secret from mountpath kv/ :tm: "
-      command: ./scripts/secret.sh
+      command: ./vault/scripts/secret.sh
       plugins:
         - vault-secrets#v2.2.0:
             server: "http://localhost:8200"
