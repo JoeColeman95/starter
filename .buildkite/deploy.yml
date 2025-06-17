@@ -8,6 +8,7 @@ steps:
             auth:
               method: "approle"
               role-id: "${VAULT_ROLE_ID}"
+              secret-id: "${VAULT_SECRET_ID}"
 
     - wait
 
@@ -20,6 +21,7 @@ steps:
             auth:
               method: "approle"
               role-id: "${VAULT_ROLE_ID}"
+              secret-id: "${VAULT_SECRET_ID}"
 
     - wait
 
