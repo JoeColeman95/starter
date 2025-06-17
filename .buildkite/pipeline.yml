@@ -10,6 +10,8 @@ steps:
 
     - label: ":hammer_and_wrench: configure vault"
       command: ./vault/scripts/setup-vault.sh
+      soft_fail:
+        - exit_status: 2 # Soft fail if the vault is already configured
 
 
     - label: ":pipeline: Upload Deploy pipeline"
