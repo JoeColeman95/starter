@@ -31,7 +31,7 @@ vault write auth/jwt/config \
     oidc_client_secret=""
 
 # create the policy that will be scoped to the token requested by the agent role
-cat ./config/agent-policy.hcl | vault policy write buildkite -
+cat ./vault/config/agent-policy.hcl | vault policy write buildkite -
 
 sleep 1
 
