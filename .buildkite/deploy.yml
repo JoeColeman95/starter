@@ -4,7 +4,7 @@ steps:
       plugins:
         - vault-secrets#v2.2.0:
             server: "http://localhost:8200"
-            path: secret/buildkite
+            path: secret/buildkite/vault-buildkite-demo/env
             auth:
               method: "approle"
               role-id: "${VAULT_ROLE_ID}"
@@ -24,4 +24,4 @@ steps:
     - wait
 
     - label: ":vault: :bomb: clean up"
-      command: docker compose down -f ./vault/docker-compose.yml
+      command: docker compose -f ./vault/docker-compose.yml down
