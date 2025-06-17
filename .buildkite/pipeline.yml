@@ -1,17 +1,22 @@
+# This example should be running on a single agent
+# for simplicity sake, we are configuring
+# an ephemeral vault server, so the data will not persist
+
 steps:
-  - label: ":construction_worker: Build"
-    command: echo "Build the rocket"
-    key: build
+    - label: ":vault: launch vault server"
+      command: docker compose -f ./vault/docker-compose.yml up -d
+      agents:
+        queue: vault
 
-  - label: ":white_check_mark: Test"
-    command: echo "Test the rocket"
-    key: test
-    depends_on: build
-    parallelism: 2
+    - wait
 
-  - label: ":rocket: Deploy"
-    command: |
-      echo "Launch the rocket"
-      cat .buildkite/annotation.md | buildkite-agent annotate --style "success"
-    key: deploy
-    depends_on: test
+    - label: ":hammer_and_wrench: configure vault"
+      command: ./vault/scripts/setup-vault.sh
+      agents:
+        queue: vault
+
+
+    - label: ":pipeline: Upload Deploy pipeline"
+      command: buildkite-agent pipeline upload .buildkite/deploy.yml
+      agents:
+        queue: vault
